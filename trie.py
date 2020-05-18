@@ -1,3 +1,8 @@
+import os
+import re
+import pathlib
+
+
 class TrieNode:
     def __init__(self):
         self.child = [None] * 26
@@ -67,10 +72,25 @@ class Trie:
 #
 #
 
-def fileToList(namefile):
-    f = open(namefile, "r")
-    s = f.readline()
-    keys = list(map(str, s.strip().split()))[:len(s)]
+
+def fileToList():
+    entries = os.listdir('D:/DATA STRUCTURE/textfiles')
+    for entry in entries:
+        print(entry)
+        f = open(entry, "r")
+        s = f.readline()
+        keys = list(map(str, s.strip().split('.')))[:len(s)]
+        return keys
+
+def filesread():
+    for path in pathlib.Path("D:/DATA STRUCTURE/test").iterdir():
+
+        if path.is_file():
+            current_file = open(path, "r", encoding='UTF-8')
+            s = current_file.read()
+            keys = list(map(str, s.strip().split()))[:len(s)]
+            current_file.close()
+            # print(current_file.read())
     return keys
 
 
@@ -83,13 +103,45 @@ def fileToList(namefile):
 
 
 T = Trie()
-T.insert("toka", "first")
-T.insert("abdo", "first")
-T.insert("sara", "Second")
-T.insert("Sara", "first")
-T.insert("sara", "first")
-T.insert("Sara", "second")
+#no such file or directory
+#entries = os.listdir('D:/DATA STRUCTURE/textfiles')
+#for entry in entries:
+#       print(entry)
+#       f = open(entry, "r")
+#       s = f.readline()
+#       keys = list(map(str, s.strip().split()))[:len(s)]
+#       for key in keys:
+#           T.insert(key, entry)
+#       f.close()
 
-L = T.search("Sara")
+for path in pathlib.Path("D:/DATA STRUCTURE/textfiles").iterdir():
+    if path.is_file():
+        current_file = open(path, "r", encoding='UTF-8')
+        s = current_file.read()
+        import re
+        #D, file, anotherfile, name = path.split('/')
+        keys = list(map(str, re.split('[@. ]',s)))[:len(s)]
+        for key in keys:
+            if key.find("’") != -1:
+                x = key.find("’")  # ’ mo5tlfa 3an '
+                key = key[:x]
+            else:
+                key = ''.join([i for i in key if i.isalpha()])
+            T.insert(key, path.name)
+        current_file.close()
+
+#words = filesread()
+#print(words)
+#for word in words:
+#    T.insert(word, "First")
+
+# T.insert("toka", "second")
+# T.insert("abdo", "first")
+# T.insert("sara", "Second")
+# T.insert("Sara", "first")
+# T.insert("sara", "first")
+# T.insert("Sara", "second")
+
+L = T.search("master")
 
 print(L)
