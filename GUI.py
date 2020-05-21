@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtGui ,QtWidgets
 import sys
 from trie import *
 T = Trie()
-fileName=""
+fileName ="hello"
 output ="False"
 # -----------------------------------initialize a window-----------------------
 class Example(QWidget):
@@ -105,8 +105,9 @@ class Example(QWidget):
                                 "padding :6px;\n"
                                 "min-width:10px;\n")
         self.info.clicked.connect(self.getInfo)
+        self.show()
 
-     def showProgress(self):
+    def showProgress(self):
         self.progressWidget = QtWidgets.QWidget(self)
         self.progressWidget.setGeometry(QtCore.QRect(300, 135, 400, 170))
         self.progressWidget.setObjectName("progressWidget")
@@ -128,7 +129,7 @@ class Example(QWidget):
                                        "border: 0px solid ;\n"
                                        )
         self.progressWidget.show()
-        print(fileName)#hna l moshkla  
+        print(fileName)#hna l moshkla
         for path in pathlib.Path(fileName).iterdir():
             if path.is_file():
                 print('yarab')
@@ -169,6 +170,7 @@ class Example(QWidget):
     # -------------------------------info function-----------------------------------------------------
     def getInfo(self):
         # write code to execute when pressing on "info" button
+        global fileName
         fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.showProgress()
         #readallfiles(fileName, T)
