@@ -62,6 +62,14 @@ class Trie:
             return False
         else:
             return node.end
+    def remove_dup(self,mylist=[]):
+     mylist.sort()
+     for i in mylist:
+         if (mylist[i]==mylist[i+1]):
+             del mylist[i]
+     return (mylist)
+
+
 
 
 #
@@ -95,7 +103,7 @@ def readallfiles(p, hello):
 #"D:/DATA STRUCTURE/questions"
 
 T = Trie()
-readallfiles("D:/DATA STRUCTURE/textfiles", T)
+readallfiles("E:\Python Projects\questions", T)
 
 #words = filesread()
 #print(words)
