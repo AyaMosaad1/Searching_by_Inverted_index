@@ -6,8 +6,6 @@
 import re
 import string
 
-
-
 #for line in file
 
 with open("E:\DS Project\dsdoc.txt","r") as file:
@@ -22,8 +20,6 @@ with open("E:\DS Project\dsdoc.txt","r") as file:
 file.close()
 
 word="pansea"
-
-
 
 result=(re.findall(r"[^.]*?"+(word)+r"[^.]*.", string_without_line_breaks))
 
