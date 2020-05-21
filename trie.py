@@ -62,24 +62,21 @@ class Trie:
             return False
         else:
             return node.end
-    def remove_dup(self,mylist=[]):
-     mylist.sort()
-     for i in mylist:
-         if (mylist[i]==mylist[i+1]):
-             del mylist[i]
-     return (mylist)
-
-
 
 
 #
-#     @brief fileToList:
-#       1.take the first line in file
-#       2.convert string to list
-#       @param name of string
-#       @return  list of words
+#     @brief readallfiles:
+#       1.takes the chosen directory from gui and the object
+#       2.opens each part individually in for loop
+#       3.check if chosen part is a file
+#       4.convert all words found in it to a string, split it by space, . and @ and add it to a list
+#       5.remove all punctuation in the word and if the word has 's, take word till the '
+#       6.insert word in trie
+#       7.close the file
+#       @param directory of folder and object of our class trie
+#       @return nothing
 #
-#
+
 
 def readallfiles(p, hello):
     for path in pathlib.Path(p).iterdir():
@@ -100,10 +97,18 @@ def readallfiles(p, hello):
 
 
 
+
+#
+#     @brief NameOfDoc:
+#       1.save name of doc in var
+#       @return  this var
+#
+#
 #"D:/DATA STRUCTURE/questions"
 
 T = Trie()
-readallfiles("E:\Python Projects\questions", T)
+readallfiles("D:/DATA STRUCTURE/textfiles", T)
+
 
 #words = filesread()
 #print(words)
@@ -117,6 +122,6 @@ readallfiles("E:\Python Projects\questions", T)
 # T.insert("sara", "first")
 # T.insert("Sara", "second")
 
-L = T.search("this")
+L = T.search("in")
 #D = T.search("this")
 print(L)
