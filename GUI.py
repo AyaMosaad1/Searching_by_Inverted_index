@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui ,QtWidgets
 import sys
 from trie import *
 T = Trie()
+fileName=""
 output ="False"
 # -----------------------------------initialize a window-----------------------
 class Example(QWidget):
@@ -105,30 +106,48 @@ class Example(QWidget):
                                 "min-width:10px;\n")
         self.info.clicked.connect(self.getInfo)
 
-        def showProgress(self):
-            self.progressWidget = QtWidgets.QWidget(self)
-            self.progressWidget.setGeometry(QtCore.QRect(300, 135, 400, 170))
-            self.progressWidget.setObjectName("progressWidget")
-            self.progressWidget.setStyleSheet('background-color: rgb(33,36,45);\n'
-                                              'color: rgb(255,255,255);\n'
-                                              "border: 2px solid ;\n"
-                                              "border-color:rgb(249,219,210);\n")
-            # progrees bar
-            self.progress = QProgressBar(self.progressWidget)
-            self.progress.setGeometry(20, 100, 355, 20)
-            self.progress.setStyleSheet('color: rgb(255,255,255);\n')
+     def showProgress(self):
+        self.progressWidget = QtWidgets.QWidget(self)
+        self.progressWidget.setGeometry(QtCore.QRect(300, 135, 400, 170))
+        self.progressWidget.setObjectName("progressWidget")
+        self.progressWidget.setStyleSheet('background-color: rgb(33,36,45);\n'
+                                          'color: rgb(255,255,255);\n' 
+                                          "border: 2px solid ;\n"
+                                          "border-color:rgb(249,219,210);\n")
+        # progrees bar
+        self.progress  = QProgressBar(self.progressWidget)
+        self.progress .setGeometry(20, 100, 355, 20)
+        self.progress .setStyleSheet('color: rgb(255,255,255);\n' )
 
-            # label
-            self.progressBar = QLabel(self.progressWidget)
-            self.progressBar.setGeometry(140, 50, 200, 40)
-            self.progressBar.setFont(QFont('Arial', 12))
-            self.progressBar.setText("Loading files ....")
-            self.progressBar.setStyleSheet("background-color:rgb(33,36,45);\n"
-                                           "border: 0px solid ;\n"
-                                           )
-            self.progressWidget.show()
+        # label
+        self.progressBar = QLabel(self.progressWidget)
+        self.progressBar.setGeometry(140, 50, 200, 40)
+        self.progressBar.setFont(QFont('Arial', 12))
+        self.progressBar.setText("Loading files ....")
+        self.progressBar.setStyleSheet("background-color:rgb(33,36,45);\n"
+                                       "border: 0px solid ;\n"
+                                       )
+        self.progressWidget.show()
+        print(fileName)#hna l moshkla  
+        for path in pathlib.Path(fileName).iterdir():
+            if path.is_file():
+                print('yarab')
+                current_file = open(path, "r", encoding='UTF-8')
+                print('yarab')
+                s = current_file.read()
+                print('yarab')
+                import re
+                # D, file, anotherfile, name = path.split('/')
+                keys = list(map(str, re.split('[@. ]', s)))[:len(s)]
+                for key in keys:
+                    if key.find("’") != -1:
+                        x = key.find("’")  # ’ mo5tlfa 3an '
+                        key = key[:x]
+                    else:
+                        key = ''.join([i for i in key if i.isalpha()])
+                    T.insert(key, path.name)
+                current_file.close()
 
-        self.show()
     # --------------------------------write txt from gui"we input the word throw input.txt to code" -------------------------------------
 
     def getText(self):
@@ -152,7 +171,7 @@ class Example(QWidget):
         # write code to execute when pressing on "info" button
         fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.showProgress()
-        readallfiles(fileName, T)
+        #readallfiles(fileName, T)
 
 
 if __name__ == "__main__":
