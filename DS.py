@@ -37,6 +37,6 @@ result=(re.findall(r"[^\n]*?"+(word.lower())+r"[^\n]*\n", data))
 final=[]
 for i in result:
   final.append((i.strip()))
-
+#for testing bs
 print(final)
 
