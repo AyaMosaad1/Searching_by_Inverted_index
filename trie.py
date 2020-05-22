@@ -95,13 +95,14 @@ def readallfiles(p, hello):
                     key = ''.join([i for i in key if i.isalpha()])
                 hello.insert(key, path.name)
             current_file.close()
+            keys.clear()
 
 
 
 #"D:/DATA STRUCTURE/questions"
 
-T = Trie()
-readallfiles("D:/DATA STRUCTURE/textfiles", T)
+#T = Trie()
+#readallfiles("D:/DATA STRUCTURE/textfiles", T)
 
 #words = filesread()
 #print(words)
