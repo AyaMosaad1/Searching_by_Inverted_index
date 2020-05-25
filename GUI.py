@@ -79,8 +79,15 @@ class Example(QWidget):
         # when run it
         self.runB.clicked.connect(self.run)
 
-        #-----------------Progress widget-----------------
-        #main widget
+
+
+        #display output files
+        self.listWidget = QListWidget(self)
+        self.listWidget.setGeometry(QtCore.QRect(560, 20, 400, 400))
+        self.listWidget.setStyleSheet("background-color:rgb(255,255,255);\n")
+        self.listWidget.itemClicked.connect(self.Clicked)
+        # -----------------Progress widget-----------------
+        # main widget
         self.progressWidget = QtWidgets.QWidget(self)
         self.progressWidget.setGeometry(QtCore.QRect(300, 135, 400, 170))
         self.progressWidget.setObjectName("progressWidget")
@@ -105,12 +112,6 @@ class Example(QWidget):
         self.progresslabel.setStyleSheet("background-color:rgb(33,36,45);\n"
                                          "border: 0px solid ;\n")
         self.progressWidget.hide()
-
-        #display output files
-        self.listWidget = QListWidget(self)
-        self.listWidget.setGeometry(QtCore.QRect(560, 20, 400, 400))
-        self.listWidget.setStyleSheet("background-color:rgb(255,255,255);\n")
-        self.listWidget.itemClicked.connect(self.Clicked)
 
         # ---------------------display file content--------------------------------
 
@@ -152,12 +153,10 @@ class Example(QWidget):
         QApplication.processEvents()
 
         #loading data in files
-        i=0
-        os.chdir(fileName)
+        i = 0
         for path in pathlib.Path(fileName).iterdir():
-            num_files=len(list(Path('.').glob('*')))
             if path.is_file():
-                i+=1
+                i += 1
                 current_file = open(path, "r", encoding='UTF-8')
                 s = current_file.read()
                 import re
@@ -171,15 +170,17 @@ class Example(QWidget):
                         key = ''.join([i for i in key if i.isalpha()])
                     T.insert(key, path.name)
                 current_file.close()
-
+                keys.clear()
                 self.prog.appendPlainText(str(i))
-                QApplication.processEvents()
+                #QApplication.processEvents()
+                if not i % 20:
+                    QApplication.processEvents(QtCore.QEventLoop.AllEvents, 50)
 
         self.progressWidget.close()
 
     # return file name
     def Clicked(self, item):
-        file_subPath =(item.text())
+        file_subPath = (item.text())
         name=pathlib.Path(fileName, file_subPath)
 
         file = open(name, 'r')
@@ -198,9 +199,8 @@ class Example(QWidget):
     # -------------------------------write the output into gui------------------------------------------
 
     def write(self):
-        data = repr(output)
+        filesList = list(output)
         self.listWidget.clear()
-        #self.out.setPlainText(data)
         for file in filesList:
             listWidgetItem = QListWidgetItem(file)
             self.listWidget.addItem(listWidgetItem)
