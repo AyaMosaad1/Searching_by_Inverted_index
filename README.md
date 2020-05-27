@@ -7,18 +7,18 @@ While implementing this algorithm, we stumbled across some corner cases that req
 
 ---
 
-## TO run it 
+## To run it :
   1- clone https://github.com/AyaMosaad1/Searching_by_Inverted_index
       
   2- cd to repo directory
   
-  3- install <pip install pyqt5>
+  3- install pip install pyqt5
   
   4- Run Gui.py
   
  ---
 
-## Contributors 
+## Contributors :
 
   - Alaa Mohamed Abd El Rahman
   - Aya Mosaad Mohamed
