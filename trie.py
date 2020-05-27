@@ -110,6 +110,7 @@ def readallfiles(p, hello):
             keys.clear()
 # hnbdel asm l file b variable 3chan a7ot ay file
 def get_sentences(word ):
+    #change path
     with open("E:\DS Project\dsdoc.txt", "r") as file:
      data = file.read()
     file.close()
