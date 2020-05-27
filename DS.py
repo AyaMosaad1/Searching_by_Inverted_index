@@ -14,7 +14,7 @@ import os
 with open("E:\DS Project\dsdoc.txt","r") as file:
 
   data=file.read()
-
+  file.close()
 # clean = open('E:\DS Project\dsdoc.txt').read().replace('\n', '')
 '''string_without_line_breaks = ""
 for line in file:
@@ -22,21 +22,21 @@ for line in file:
     string_without_line_breaks += stripped_line
     #string_without_line_breaks = string_without_line_breaks.replace(',' , "  ")
 '''
-file.close()
 
-word="roses"
+def get_sentences(word ):
+ #word="roses"
 
-result={}
+ result={}
 #hnbdel asm l file b variable 3chan a7ot ay file
 
-result=(re.findall(r"[^\n]*?"+(word.lower())+r"[^\n]*\n", data))
+ result=(re.findall(r"[^\n]*?"+(word.lower())+r"[^\n]*\n", data))
+ final = []
+ for i in result:
+     final.append((i.strip()))
+ return (final)
+# for testing bs
 
 '''for i in result:
     print(i)
 '''
-final=[]
-for i in result:
-  final.append((i.strip()))
-#for testing bs
-print(final)
-
+print(get_sentences("roses"))
