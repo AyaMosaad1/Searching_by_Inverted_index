@@ -7,7 +7,8 @@ class TrieNode:
     def __init__(self):
         self.child = [None] * 26
         # at the End Of Word is set which represent the name of docs that have this word
-        self.end = set()
+        # self.end = set()
+        self.end = []
 
 
 class Trie:
@@ -37,7 +38,8 @@ class Trie:
                 if not node.child[index]:
                     node.child[index] = TrieNode()
                 node = node.child[index]
-        node.end.add(doc)
+        # node.end.add(doc)
+        node.end.append(doc)
 
     #
     #     @brief search:
@@ -61,23 +63,33 @@ class Trie:
         if len(node.end) == 0:
             return False
         else:
+            node.end = self.remove_dup(node.end)
             return node.end
-    def remove_dup(mylist):
-     fial_list = []
-     [fial_list.append(x) for x in mylist if x not in fial_list]
-     return  fial_list
-'''for debug
-listy=[1,2,3,2,4]
-print(Trie.remove_dup(listy))
-'''
-#
-#     @brief fileToList:
-#       1.take the first line in file
-#       2.convert string to list
-#       @param name of string
-#       @return  list of words
-#
-#
+
+    #
+    #     @briefremove_dup:
+    #       1.Remove dupliceted items from list
+    #       @param d_list 
+    #       @return  return set with unique elements
+    #
+
+    def remove_dup(self , d_list):
+        final_list = []
+        [final_list.append(x) for x in d_list if x not in final_list]
+        return  final_list
+
+
+
+#     @brief readallfiles:
+#       1.takes the chosen directory from gui and the object
+#       2.opens each part individually in for loop
+#       3.check if chosen part is a file
+#       4.convert all words found in it to a string, split it by space, . and @ and add it to a list
+#       5.remove all punctuation in the word and if the word has 's, take word till the '
+#       6.insert word in trie
+#       7.close the file
+#       @param directory of folder and object of our class trie
+#       @return nothing
 
 def readallfiles(p, hello):
     for path in pathlib.Path(p).iterdir():
@@ -97,25 +109,3 @@ def readallfiles(p, hello):
             current_file.close()
             keys.clear()
 
-
-
-#"D:/DATA STRUCTURE/questions"
-
-#T = Trie()
-#readallfiles("D:/DATA STRUCTURE/textfiles", T)
-
-#words = filesread()
-#print(words)
-#for word in words:
-#    T.insert(word, "First")
-
-# T.insert("toka", "second")
-# T.insert("abdo", "first")
-# T.insert("sara", "Second")
-# T.insert("Sara", "first")
-# T.insert("sara", "first")
-# T.insert("Sara", "second")
-
-L = T.search("this")
-#D = T.search("this")
-print(L)

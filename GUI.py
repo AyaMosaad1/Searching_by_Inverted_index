@@ -4,16 +4,12 @@ import os.path
 from trie import *
 from pathlib import Path
 from PyQt5.QtGui import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui ,QtWidgets
 
 
 T = Trie()
-output ="False"
-fileName ="hello"
-
-filesList=['0.txt','1.txt','2.txt','3.txt','4.txt','5.txt','6.txt']
 
 # -----------------------------------initialize a window-----------------------
 class Example(QWidget):
@@ -207,12 +203,10 @@ class Example(QWidget):
 
             # --------------------------------run function----------------------------------------
     def run(self):
-        # write code to execute when pressing on "run" button
         self.write()
 
     # -------------------------------info function-----------------------------------------------------
     def getInfo(self):
-        # write code to execute when pressing on "info" button
         global fileName
         fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.showProgress()
