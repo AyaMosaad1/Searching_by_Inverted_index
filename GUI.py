@@ -10,7 +10,8 @@ from PyQt5.QtWidgets import *
 
 
 T = Trie()
-
+output = list()
+fileName = " "
 # -----------------------------------initialize a window-----------------------
 class Example(QWidget):
 
@@ -164,11 +165,12 @@ class Example(QWidget):
                         key = key[:x]
                     else:
                         key = ''.join([i for i in key if i.isalpha()])
+
                     T.insert(key, path.name)
+
                 current_file.close()
                 keys.clear()
                 self.prog.appendPlainText(str(i))
-                #QApplication.processEvents()
                 if not i % 20:
                     QApplication.processEvents(QtCore.QEventLoop.AllEvents, 50)
 
@@ -189,17 +191,23 @@ class Example(QWidget):
 
     # -------------------write txt from gui"we input the word throw input.txt to code" --------------------
     def getText(self):
+        word = self.b.document().toPlainText()
         global output
-        output = T.search(self.b.document().toPlainText())
+        output = T.search(word)
 
     # -------------------------------write the output into gui------------------------------------------
 
     def write(self):
-        filesList = list(output)
-        self.listWidget.clear()
-        for file in filesList:
-            listWidgetItem = QListWidgetItem(file)
-            self.listWidget.addItem(listWidgetItem)
+        if output == "Not Found":
+            self.listWidget.clear()
+            self.listWidget.addItem(output)
+        else:
+            #filesList = list(output)
+            #filesList = output
+            self.listWidget.clear()
+            for file in output:
+                listWidgetItem = QListWidgetItem(file)
+                self.listWidget.addItem(listWidgetItem)
 
             # --------------------------------run function----------------------------------------
     def run(self):

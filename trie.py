@@ -8,7 +8,7 @@ class TrieNode:
         self.child = [None] * 26
         # at the End Of Word is set which represent the name of docs that have this word
         # self.end = set()
-        self.end = []
+        self.end = list()
 
 
 class Trie:
@@ -28,7 +28,6 @@ class Trie:
     def insert(self, word, doc):
         # to covert all capital char to small
         word = word.casefold()
-
         length = len(word)
         node = self.root
 
@@ -39,7 +38,8 @@ class Trie:
                     node.child[index] = TrieNode()
                 node = node.child[index]
         # node.end.add(doc)
-        node.end.append(doc)
+        if not doc in node.end:
+            node.end.append(doc)
 
     #
     #     @brief search:
@@ -51,33 +51,57 @@ class Trie:
 
     def search(self, word):
         word = word.casefold()
-
         node = self.root
         length = len(word)
 
         for i in range(length):
             index = ord(word[i]) - ord('a')
             if not node.child[index]:
-                return False
+                return "Not Found"
             node = node.child[index]
         if len(node.end) == 0:
-            return False
+            return "Not Found"
         else:
-            node.end = self.remove_dup(node.end)
             return node.end
 
     #
     #     @briefremove_dup:
     #       1.Remove dupliceted items from list
-    #       @param d_list 
+    #       @param d_list
     #       @return  return set with unique elements
     #
 
-    def remove_dup(self , d_list):
-        final_list = []
+    def remove_dup(self, d_list):
+        final_list = list()
         [final_list.append(x) for x in d_list if x not in final_list]
-        return  final_list
+        return final_list
 
+
+def trial(mylist):
+    mylist.sort()
+   # print(mylist)
+    n = len(mylist)
+    if n == 0 or n == 1:
+        return mylist;
+
+
+
+    #finalist=[None]*n
+    #finalist=[]
+    #finalist= (range(n))
+
+    j=0
+    #for i in mylist:
+    for i in range (0,n-1):
+        if mylist[i] != mylist[i+1]:
+            mylist[j]=mylist[i]
+            j+=1
+
+    mylist[j] = mylist[n - 1]
+    j += 1
+    for i in range(0, j):
+     mylist[j] = mylist[i]
+    return mylist
 
 
 #     @brief readallfiles:
