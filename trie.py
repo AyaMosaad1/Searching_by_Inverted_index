@@ -37,9 +37,8 @@ class Trie:
                 if not node.child[index]:
                     node.child[index] = TrieNode()
                 node = node.child[index]
-        # node.end.add(doc)
-        if not doc in node.end:
-            node.end.append(doc)
+
+        node.end.append(doc)
 
     #
     #     @brief search:
@@ -132,22 +131,4 @@ def readallfiles(p, hello):
                 hello.insert(key, path.name)
             current_file.close()
             keys.clear()
-# hnbdel asm l file b variable 3chan a7ot ay file
-def get_sentences(word ):
-    #change path
-    with open("E:\DS Project\dsdoc.txt", "r") as file:
-     data = file.read()
-    file.close()
-    result={}
 
-    result=(re.findall(r"[^\n]*?"+(word.lower())+r"[^\n]*\n", data))
-    final = []
-    for i in result:
-     final.append((i.strip()))
-    return (final)
-# for testing bs
-
-'''for i in result:
-    print(i)
-'''
-print(get_sentences("roses"))

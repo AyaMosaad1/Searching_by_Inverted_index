@@ -159,6 +159,7 @@ class Example(QWidget):
                 import re
                 # D, file, anotherfile, name = path.split('/')
                 keys = list(map(str, re.split('[@. ]', s)))[:len(s)]
+                enteredwords = list()
                 for key in keys:
                     if key.find("’") != -1:
                         x = key.find("’")  # ’ mo5tlfa 3an '
@@ -166,8 +167,9 @@ class Example(QWidget):
                     else:
                         key = ''.join([i for i in key if i.isalpha()])
 
-                    T.insert(key, path.name)
-
+                    if not key in enteredwords:
+                        T.insert(key, path.name)
+                        enteredwords.append(key)
                 current_file.close()
                 keys.clear()
                 self.prog.appendPlainText(str(i))
