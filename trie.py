@@ -1,3 +1,6 @@
+
+
+
 import os
 import re
 import pathlib
@@ -75,7 +78,7 @@ class Trie:
         [final_list.append(x) for x in d_list if x not in final_list]
         return final_list
 
-
+###########################panse########################
 def trial(mylist):
     mylist.sort()
    # print(mylist)
@@ -101,6 +104,17 @@ def trial(mylist):
     for i in range(0, j):
      mylist[j] = mylist[i]
     return mylist
+
+
+def get_setence(path,word):
+ with open(path,"r") as file:
+
+  d=file.readlines()
+  for line in d:
+   if word.lower() in line.lower():
+    return (line)
+
+#print (get_setence("E:\Python Projects\questions\\0.txt","What"))
 
 
 #     @brief readallfiles:
@@ -131,4 +145,3 @@ def readallfiles(p, hello):
                 hello.insert(key, path.name)
             current_file.close()
             keys.clear()
-
