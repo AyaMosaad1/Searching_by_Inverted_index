@@ -217,10 +217,10 @@ class Example(QWidget):
         filePath=pathlib.Path(fileName, file_subPath)
         self.chooseStyleWidget.show()
 
-
     def DisplayFile(self):
         self.chooseStyleWidget.hide()
-        self.out = QPlainTextEdit(self.fileWidget)
+        self.out = MyHighlighter(filePath, word, self.fileWidget)
+        # self.out = QPlainTextEdit(self.fileWidget)
         self.out.setGeometry(QtCore.QRect(4, 24, 440, 200))
         self.out.textChanged.connect(self.getText)
         self.out.setReadOnly(True)
@@ -280,6 +280,38 @@ class Example(QWidget):
         global fileName
         fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
         self.showProgress()
+
+
+
+class MyHighlighter(QPlainTextEdit):
+    def __init__(self,path,word, parent):
+        super(MyHighlighter, self).__init__(parent)
+        # Setup the text editor
+        file = open(path, 'r')
+        with file:
+            text = file.read()
+        text = text.casefold()
+        self.setPlainText(text)
+        cursor = self.textCursor()
+        # Setup the desired format for matches
+        format = QtGui.QTextCharFormat()
+        format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        # Setup the regex engine
+        pattern = word
+
+        regex = QtCore.QRegExp(pattern)
+
+        # Process the displayed document
+        pos = 0
+        index = regex.indexIn(self.toPlainText(), pos)
+        while (index != -1):
+            # Select the matched text and apply the desired format
+            cursor.setPosition(index)
+            cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
+            cursor.mergeCharFormat(format)
+            # Move to the next match
+            pos = index + regex.matchedLength()
+            index = regex.indexIn(self.toPlainText(), pos)
 
 
 
