@@ -195,6 +195,10 @@ class Example(QWidget):
                     if key.find("’") != -1:
                         x = key.find("’")  # ’ mo5tlfa 3an '
                         key = key[:x]
+                    elif key.find("'") != -1:
+                        x = key.find("'")  # ’ mo5tlfa 3an '
+                        key = key[:x]
+                        key = ''.join([i for i in key if i.isalpha()])
                     else:
                         key = ''.join([i for i in key if i.isalpha()])
 
