@@ -301,7 +301,7 @@ class MyHighlighter(QPlainTextEdit):
         format = QtGui.QTextCharFormat()
         format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
         # Setup the regex engine
-        pattern = word
+        pattern = word.lower()
 
         regex = QtCore.QRegExp(pattern)
 
