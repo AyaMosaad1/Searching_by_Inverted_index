@@ -299,7 +299,7 @@ class MyHighlighter(QPlainTextEdit):
         cursor = self.textCursor()
         # Setup the desired format for matches
         format = QtGui.QTextCharFormat()
-        format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        format.setBackground(QtGui.QBrush(QtGui.QColor("pink")))
         # Setup the regex engine
         pattern = word.lower()
 
